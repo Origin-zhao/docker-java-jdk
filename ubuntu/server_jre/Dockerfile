@@ -17,10 +17,10 @@ RUN VERSION=8 && \
         http://download.oracle.com/otn-pub/java/jdk/"${VERSION}"u"${UPDATE}"-b"${BUILD}"/"${SIG}"/server-jre-"${VERSION}"u"${UPDATE}"-linux-x64.tar.gz \
         | tar xz -C /tmp && \
     mkdir -p /usr/lib/jvm && mv /tmp/jdk1.${VERSION}.0_${UPDATE} "${JAVA_HOME}" && \
-    echo "${TZ}" > /etc/timezone \
+    && echo "${TZ}" > /etc/timezone \
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && apt install -y tzdata \
-    apt-get autoclean && apt-get --purge -y autoremove && \
+    && apt-get autoclean && apt-get --purge -y autoremove && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     update-alternatives --install "/usr/bin/java" "java" "${JRE_HOME}/bin/java" 1 && \
     update-alternatives --install "/usr/bin/javac" "javac" "${JAVA_HOME}/bin/javac" 1 && \
