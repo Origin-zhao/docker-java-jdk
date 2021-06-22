@@ -2,6 +2,7 @@ FROM ubuntu:latest
 MAINTAINER SgrAlpha <admin@mail.sgr.io>
 
 ENV DEBIAN_FRONTEND=noninteractive \
+    TZ=Asia/Shanghai \
     JAVA_HOME=/usr/lib/jvm/java-8-oracle \
     JRE_HOME=/usr/lib/jvm/java-8-oracle/jre
  
@@ -16,6 +17,9 @@ RUN VERSION=8 && \
         http://download.oracle.com/otn-pub/java/jdk/"${VERSION}"u"${UPDATE}"-b"${BUILD}"/"${SIG}"/server-jre-"${VERSION}"u"${UPDATE}"-linux-x64.tar.gz \
         | tar xz -C /tmp && \
     mkdir -p /usr/lib/jvm && mv /tmp/jdk1.${VERSION}.0_${UPDATE} "${JAVA_HOME}" && \
+    echo "${TZ}" > /etc/timezone \
+    && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
+    && apt install -y tzdata \
     apt-get autoclean && apt-get --purge -y autoremove && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     update-alternatives --install "/usr/bin/java" "java" "${JRE_HOME}/bin/java" 1 && \
