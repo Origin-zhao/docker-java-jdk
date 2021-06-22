@@ -18,7 +18,7 @@ RUN VERSION=8 && \
         | tar xz -C /tmp && \
     mkdir -p /usr/lib/jvm && mv /tmp/jdk1.${VERSION}.0_${UPDATE} "${JAVA_HOME}" && \
     echo "${TZ}" > /etc/timezone &&\
-    ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
+    ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime &&\
     apt install -y tzdata &&\
     apt-get autoclean && apt-get --purge -y autoremove && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
